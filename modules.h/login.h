@@ -33,7 +33,7 @@ int login(Usuario* usuario) {
                 printf("\033[1;36m\nDigite seu e-mail: \033[0m"); // Ciano para o prompt de entrada
                 scanf("%s", email);
 
-                printf("\033[1;36m\nDigite sua senha (deve conter 8 digitos): \033[0m"); // Ciano novamente
+                printf("\033[1;36m\nDigite sua senha: \033[0m"); // Ciano novamente
 
                 
                 int i = 0;
@@ -128,7 +128,11 @@ void exibirMenu(int isAdmin) {
     printf("| 4 - Buscar por Animais Desaparecidos          |\n");
     printf("| 5 - Buscar por Animais Disponiveis            |\n");
     printf("| 6 - Realizar Adocao                           |\n");
-    printf("| 7 - Sair                                      |\n");
+
+    if (isAdmin) {
+        printf("| 7 - Vizualizar historico de adocoes           |\n");
+    }
+    printf("| 8 - Sair                                      |\n");
     printf("|-----------------------------------------------|\n");
     printf("\033[0m");
     printf("\033[1;32mEscolha uma opcao: \033[0m");
