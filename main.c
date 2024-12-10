@@ -6,16 +6,25 @@
 #include "modules.h/animais_desaparecidos.h"
 #include "modules.h/usuarios.h"
 #include "modules.h/login.h"
+#include "modules.h/animais.h"
+#include "modules.h/realizar_adocao.h"
 
 
 
 
 int main() {
 
+    Animal* inicioAnimal = NULL;
+    Animal* fimAnimal = NULL;
     AnimalDesaparecido* inicioAni = NULL;
     AnimalDesaparecido* fimAni = NULL;
     Usuario* inicioUser = NULL;
     Usuario* fimUser = NULL;
+    InformacaoDeUsuario usuarios[MAX_USUARIOS];
+    InformacaoDeAnimal animais[MAX_ANIMAIS];
+    int numUsuarios = carregarUsuarios(usuarios);
+    int numAnimais = carregarAnimais(animais);
+
 
     
 
@@ -45,7 +54,7 @@ int main() {
     Sleep(3000);
     system("cls");
 
-    while (opcao != 7) {
+    while (opcao != 8) {
         // Exibe o menu de acordo com o tipo de usuário
         exibirMenu(usuarioAtual.isAdmin);
         opcao = 0;
@@ -80,11 +89,22 @@ int main() {
                         system("pause");
                         system("cls");
                         break;
+
                     }else if (opcao == 2) {
-                        // Cadastro de animais para adoção
+                        system("cls");
+                        printf("\033[1;32m\nCadastro de animais para adocao...\n\033[0m");
+                        Sleep(1000);
+                        system("cls");
+                        cadastrarAnimal(&inicioAnimal, &fimAnimal);
+                        printf("Animal cadastrado com sucesso!\n");
+                    
                     }else{
+                        system("cls");
                         printf("\033[1;32m\nCadastro de animais desaparecidos...\n\033[0m");
                         desaparecimentoAnimal(&inicioAni, &fimAni);
+                        Sleep(1000);
+                        system("cls");
+                        printf("Desaparecimento cadastrado com sucesso!\n");
                     }
                     Sleep(2000);
                     system("cls");
@@ -109,18 +129,37 @@ int main() {
                 }
 
             case 5:
-                 printf("\033[1;32m\nFuncao de busca por animais disponiveis...\n\033[0m");
-                Sleep(2000);
-                system("cls");
-                break;
+                printf("\033[1;32m\nFuncao de busca por animais disponiveis...\n\033[0m");
+                lerAnimais();
+                char fecharLeitura;
+                printf("Fechar? (s): ");
+                getchar(); 
+                scanf("%c", &fecharLeitura);
+                if(fecharLeitura == 's'){
+                    system("cls");
+                    break;
+                }
 
             case 6:
                 printf("\033[1;32m\nFuncao de realizar adocao...\n\033[0m");
+                realizarAdocao();
                 Sleep(2000);
                 system("cls");
                 break;
             
             case 7:
+                printf("\033[1;32m\nFuncao de busca por adocoes...\n\033[0m");
+                lerAdocoes(usuarios, numUsuarios, animais, numAnimais);
+                char fecharLeituraAdocoes;
+                printf("Fechar? (s): ");
+                while (getchar() != '\n');  // Limpar o buffer 
+                scanf("%c", &fecharLeituraAdocoes);
+                if(fecharLeituraAdocoes == 's'){
+                    system("cls");
+                    break;
+                }        
+               
+            case 8:
                 printf("\033[1;32m\nSaindo do sistema. Ate mais!\n\033[0m");
                 Sleep(2000);
                 system("cls");
@@ -155,6 +194,5 @@ int main() {
                 break;
         }
     }
-
     return 0;
 }
