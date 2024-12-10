@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 
 // Estrutura para representar um usuário
 typedef struct Usuario {
@@ -59,6 +60,7 @@ void salvarUsuarioNoArquivo(Usuario* usuario) {
 // Função para cadastrar um novo usuário na lista encadeada
 void cadastrarUsuario(Usuario** inicio, Usuario** fim) {
     char nome[50], email[50], senha[20], cpf[15], rua[50], bairro[30], cidade[30];
+    int tamanhoMax = 20;
 
     printf("\033[1;32m\nCadastro de Novo Usuario:\n\n\033[0m");
 
@@ -67,28 +69,47 @@ void cadastrarUsuario(Usuario** inicio, Usuario** fim) {
 
 
 
-    printf("\033[1;34mNome do Usuario: ");
+    printf("\033[1;34mNome do Usuario: \033[0m");
     fgets(nome, sizeof(nome), stdin);
     nome[strcspn(nome, "\n")] = 0;  
 
-    printf("Email do Usuario: ");
+    printf("\033[1;34mEmail do Usuario: \033[0m");
     fgets(email, sizeof(email), stdin);
     email[strcspn(email, "\n")] = 0;
 
-    while(1){
-    printf("Senha do Usuario: ");
-    fgets(senha, sizeof(senha), stdin);
-    if (strlen(senha) < 8) {
-        printf("\033[1;31m\n\nA senha deve conter pelo menos 8 digitos.\n\033[0m");
-    }else{
-    senha[strcspn(senha, "\n")] = 0;
-    break;
+    while (1) {
+        printf("\033[1;34mSenha do Usuario (deve conter 8 digitos): \033[0m");
+        int i = 0;
+        while (1) {
+            char ch = getch(); // Captura o caractere sem exibi-lo
+            if (ch == 13) { // Enter pressionado
+                senha[i] = '\0'; // Finaliza a string
+                break;
+            } else if (ch == 8 && i > 0) { // Backspace pressionado
+                i--;
+                printf("\b \b"); // Remove o último caractere exibido
+            } else if (i < tamanhoMax - 1) { // Limite de caracteres
+                senha[i] = ch;
+                i++;
+                printf("*"); // Exibe um asterisco
+            }
+        }
+        
+        printf("\n");
+
+        // Valida o tamanho da senha
+        if (strlen(senha) < 8) {
+            printf("\033[1;31m\nA senha deve conter pelo menos 8 caracteres.\n\033[0m");
+        
+        }else{
+        senha[strcspn(senha, "\n")] = 0;
+        break;
         }
     }    
     
    
     while(1){
-    printf("CPF do Usuario: ");
+    printf("\033[1;34mCPF do Usuario: \033[0m");
     fgets(cpf, sizeof(cpf), stdin);
     cpf[strcspn(cpf, "\n")] = 0;
     if (strlen(cpf) != 11) {
@@ -105,20 +126,20 @@ void cadastrarUsuario(Usuario** inicio, Usuario** fim) {
             if (valido) {
                 break;  // CPF válido, sai do loop
             } else {
-                printf("\033[1;31m\n\nO CPF deve conter apenas digitos numéricos.\n\033[0m");
+                printf("\033[1;31m\n\nO CPF deve conter apenas digitos numericos.\n\033[0m");
             }
         }
     }
 
-    printf("Rua: ");
+    printf("\033[1;34mRua: \033[0m");
     fgets(rua, sizeof(rua), stdin);
     rua[strcspn(rua, "\n")] = 0;
 
-    printf("Bairro: ");
+    printf("\033[1;34mBairro: \033[0m");
     fgets(bairro, sizeof(bairro), stdin);
     bairro[strcspn(bairro, "\n")] = 0;
 
-    printf("Cidade: \033[0m");
+    printf("\033[1;34mCidade: \033[0m");
     fgets(cidade, sizeof(cidade), stdin);
     cidade[strcspn(cidade, "\n")] = 0;
 
