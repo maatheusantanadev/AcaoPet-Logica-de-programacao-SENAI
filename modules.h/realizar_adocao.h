@@ -143,7 +143,7 @@ void salvarAdocao(Adocao adocao) {
 void lerAdocoes(InformacaoDeUsuario usuarios[], int numUsuarios, InformacaoDeAnimal animais[], int numAnimais) {
     FILE *arquivo = fopen("adocoes.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de adocoes.\n");
+        printf("Nao ha historicos de adocoes.\n");
         return;
     }
 
