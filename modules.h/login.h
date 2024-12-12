@@ -96,10 +96,12 @@ int login(Usuario* usuario) {
                     system("cls");
                 }
                 break;
+                
 
         case 2:
              return opcao = 1;
         case 3:
+            system("cls");
             exit(0);
 
         default:

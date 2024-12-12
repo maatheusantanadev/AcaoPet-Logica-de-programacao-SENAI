@@ -117,6 +117,7 @@ int main() {
                 
 
             case 4:
+                system("cls");
                 printf("\033[1;32m\nFuncao de busca por animais desaparecidos...\n\033[0m");
                 lerAnimaisDoArquivo();
                 char fechar;
@@ -129,6 +130,7 @@ int main() {
                 }
 
             case 5:
+                system("cls");
                 printf("\033[1;32m\nFuncao de busca por animais disponiveis...\n\033[0m");
                 lerAnimais();
                 char fecharLeitura;
@@ -141,17 +143,24 @@ int main() {
                 }
 
             case 6:
+                system("cls");
                 printf("\033[1;32m\nFuncao de realizar adocao...\n\033[0m");
                 realizarAdocao();
-                Sleep(2000);
-                system("cls");
-                break;
+                char fecharAdocoes;
+                printf("\nFechar? (s): ");
+                while (getchar() != '\n');  // Limpar o buffer 
+                scanf("%c", &fecharAdocoes);
+                if(fecharAdocoes == 's'){
+                    system("cls");
+                    break;
+                }        
             
             case 7:
+                system("cls");
                 printf("\033[1;32m\nFuncao de busca por adocoes...\n\033[0m");
                 lerAdocoes(usuarios, numUsuarios, animais, numAnimais);
                 char fecharLeituraAdocoes;
-                printf("Fechar? (s): ");
+                printf("\nFechar? (s): ");
                 while (getchar() != '\n');  // Limpar o buffer 
                 scanf("%c", &fecharLeituraAdocoes);
                 if(fecharLeituraAdocoes == 's'){
@@ -160,6 +169,7 @@ int main() {
                 }        
                
             case 8:
+                system("cls");
                 printf("\033[1;32m\nSaindo do sistema. Ate mais!\n\033[0m");
                 Sleep(2000);
                 system("cls");
@@ -188,6 +198,7 @@ int main() {
                 break;
 
             default:
+                system("cls");
                 printf("\033[1;31m\nOpcao invalida! Escolha uma das demonstradas no menu!\n\033[0m");
                 Sleep(2000);
                 system("cls");
