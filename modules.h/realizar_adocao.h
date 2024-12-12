@@ -92,7 +92,7 @@ int carregarAnimais(InformacaoDeAnimal animais[]) {
         } else if (strstr(linha, "Condicoes de Adocao: ")) {
             sscanf(linha, "Condicoes de Adocao: %[^\n]", animais[count].condicoes);
         } else if (strstr(linha, "-------------------------")) {
-            count++; // Animal completo, incrementa o índice
+            count++; 
         }
     }
 
@@ -143,7 +143,7 @@ void salvarAdocao(Adocao adocao) {
 void lerAdocoes(InformacaoDeUsuario usuarios[], int numUsuarios, InformacaoDeAnimal animais[], int numAnimais) {
     FILE *arquivo = fopen("adocoes.txt", "r");
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de adoções.\n");
+        printf("Erro ao abrir o arquivo de adocoes.\n");
         return;
     }
 
@@ -160,22 +160,22 @@ void lerAdocoes(InformacaoDeUsuario usuarios[], int numUsuarios, InformacaoDeAni
             // Verifica o usuário e o animal
             InformacaoDeUsuario usuarioEncontrado;
             if (!verificarUsuario(cpfUsuario, usuarios, numUsuarios, &usuarioEncontrado)) {
-                printf("Usuário não encontrado: %s\n", cpfUsuario);
+                printf("Usuario nao encontrado: %s\n", cpfUsuario);
                 continue;
             }
 
             InformacaoDeAnimal animalEncontrado;
             if (!verificarAnimal(idAnimal, animais, numAnimais, &animalEncontrado)) {
-                printf("Animal não encontrado: %d\n", idAnimal);
+                printf("Animal nao encontrado: %d\n", idAnimal);
                 continue;
             }
 
             // Exibe os dados
-            printf("\n=== Dados da Adoção ===\n");
-            printf("CPF do Usuário: %s\n", cpfUsuario);
+            printf("\n=== Dados da Adocao ===\n");
+            printf("CPF do Usuario: %s\n", cpfUsuario);
             printf("ID do Animal: %d\n", idAnimal);
 
-            printf("\n=== Dados do Usuário ===\n");
+            printf("\n=== Dados do Usuario ===\n");
             printf("Nome: %s\n", usuarioEncontrado.nomeUsuario);
             printf("CPF: %s\n", usuarioEncontrado.cpf);
             printf("Email: %s\n", usuarioEncontrado.email);
@@ -183,8 +183,8 @@ void lerAdocoes(InformacaoDeUsuario usuarios[], int numUsuarios, InformacaoDeAni
             printf("\n=== Dados do Animal ===\n");
             printf("ID: %d\n", animalEncontrado.idAnimal);
             printf("Nome: %s\n", animalEncontrado.nome);
-            printf("Espécie: %s\n", animalEncontrado.especie);
-            printf("Condições: %s\n", animalEncontrado.condicoes);
+            printf("Especie: %s\n", animalEncontrado.especie);
+            printf("Condicoes: %s\n", animalEncontrado.condicoes);
             printf("-------------------------\n");
         }
     }
