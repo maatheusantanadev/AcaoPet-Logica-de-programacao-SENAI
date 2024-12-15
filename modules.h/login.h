@@ -15,11 +15,11 @@ int login(Usuario* usuario) {
         printf("=====================================\n");
         printf("\033[1;33m1. Login\n");  // Amarelo para a opção Login
         printf("2. Cadastro\n");
-        printf("3. Encerrar\n");
         printf("\033[1;34m=====================================\n");  // Azul novamente para a borda
         printf("\033[1;32mEscolha uma opcao: \033[0m");  // Branco para o texto de entrada
         
         scanf("%d", &opcao);
+        fflush(stdin);
 
         switch (opcao) {
         case 1:
@@ -96,16 +96,11 @@ int login(Usuario* usuario) {
                     system("cls");
                 }
                 break;
-                
-
-        case 2:
-             return opcao = 1;
-        case 3:
-            system("cls");
-            exit(0);
 
         default:
             printf("\033[1;31m\nOpcao invalida! Escolha uma das demonstradas no menu!\n\033[0m");
+            Sleep(1000);
+            system("cls");
             break;
             }
     }
