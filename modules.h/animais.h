@@ -131,6 +131,30 @@ void cadastrarAnimal(Animal** inicio, Animal** fim) {
     salvarAnimal(novo);
 }
 
+// Função para verificar se um ID está no arquivo de adoções
+int animalJaAdotado(const char* idAnimal) {
+    FILE* arquivoAdocoes = fopen("adocoes.txt", "r");
+    if (arquivoAdocoes == NULL) {
+        return 0; // Se o arquivo não existir, consideramos que o animal não foi adotado
+    }
+
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arquivoAdocoes) != NULL) {
+        // Procura pela linha que contém "ID do Animal:"
+        if (strncmp(linha, "ID do Animal:", 13) == 0) {
+            char idAdotado[50];
+            sscanf(linha, "ID do Animal: %s", idAdotado); 
+            if (strcmp(idAdotado, idAnimal) == 0) {
+                fclose(arquivoAdocoes);
+                return 1;
+            }
+        }
+    }
+
+    fclose(arquivoAdocoes);
+    return 0; // Animal não adotado
+}
+
 // Função para ler os dados dos animais do arquivo
 void lerAnimais() {
     FILE* arquivo = fopen("animais.txt", "r");
@@ -140,14 +164,30 @@ void lerAnimais() {
     }
 
     char linha[256];
-    printf("\033[1;32m\nAnimais Registrados:\033[0m\n");
+    int exibirAnimal = 0;
+    char idAnimal[50];
+
+    printf("\033[1;32m\nAnimais Disponiveis para Adocao:\033[0m\n");
     printf("----------------------------------------------------\n");
 
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        printf("%s", linha);
+        // Verifica se a linha contém "ID:"
+        if (strncmp(linha, "ID:", 3) == 0) {
+            sscanf(linha, "ID: %s", idAnimal); // Extrai o ID do animal
+            exibirAnimal = !animalJaAdotado(idAnimal); // Define se deve exibir o animal
+        }
+
+       
+        if (exibirAnimal) {
+            printf("%s", linha);
+        }
+
+        
+        if (strncmp(linha, "-------------------------", 25) == 0) {
+            exibirAnimal = 0;
+        }
     }
 
     fclose(arquivo);
     printf("----------------------------------------------------\n");
 }
-
