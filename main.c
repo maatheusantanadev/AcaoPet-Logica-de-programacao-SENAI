@@ -24,6 +24,7 @@ int main() {
     InformacaoDeAnimal animais[MAX_ANIMAIS];
     int numUsuarios = carregarUsuarios(usuarios);
     int numAnimais = carregarAnimais(animais);
+    
 
 
     
@@ -35,18 +36,29 @@ int main() {
         loginSucesso = login(&usuarioAtual);
         int opcaoLogin;
         opcaoLogin = loginSucesso;
-        if (opcaoLogin == 1){
-            system("cls");
-            printf("\033[1;32m\nCadastro de usuarios...\n\033[0m");
-            Sleep(1000);
-            system("cls");
-            cadastrarUsuario(&inicioUser, &fimUser);
-            printf("\033[1;32mUsuario cadastrado com sucesso!\n\033[0m");        
-            loginSucesso = 0;
-            Sleep(1000);
-            system("cls");
-        }else{
-            break;
+        while(1){
+            if (opcaoLogin == 1){
+                system("cls");
+                printf("\033[1;32m\nCadastro de usuarios...\n\033[0m");
+                char fechar;
+                printf("\033[1;34\nDeseja continuar? (s/n): \033[0m"); 
+                scanf("%c", &fechar);
+                fflush(stdin);
+                if(fechar == 'n'){
+                    loginSucesso = 0;
+                    system("cls");
+                    break;
+                }
+                Sleep(1000);
+                system("cls");
+                cadastrarUsuario(&inicioUser, &fimUser);
+                printf("\033[1;32mUsuario cadastrado com sucesso!\n\033[0m");        
+                loginSucesso = 0;
+                Sleep(1000);
+                system("cls");
+            }else{
+                break;
+            }
         }
     }
     int opcao = 0;
@@ -72,13 +84,21 @@ int main() {
                     if(opcao == 1){
                         system("cls");
                         printf("\033[1;32m\nCadastro de usuarios...\n\033[0m");
+                        char fechar;
+                        printf("\nDeseja continuar? (s/n): ");
+                        while (getchar() != '\n');  // Limpar o buffer 
+                        scanf("%c", &fechar);
+                        if(fechar == 'n'){
+                            system("cls");
+                            break;
+                        }     
                         Sleep(1000);
                         system("cls");
                         cadastrarUsuario(&inicioUser, &fimUser);
-                        printf("Usuario cadastrado com sucesso!\n");
+                        printf("\033[1;32mUsuario cadastrado com sucesso!\n\033[0m");
                         
                         char see;
-                        printf("Deseja visualizar usuarios cadastrados? (s): ");
+                        printf("\033[1;32mDeseja visualizar usuarios cadastrados? (s): \033[0m");
                         fflush(stdin);
                         scanf(" %c", &see);
                         if (see == 's') {
@@ -173,8 +193,9 @@ int main() {
                 printf("\033[1;32m\nSaindo do sistema. Ate mais!\n\033[0m");
                 Sleep(2000);
                 system("cls");
+                exit(0);
 
-                while (!loginSucesso) {
+                /*while (!loginSucesso) {
                     loginSucesso = login(&usuarioAtual);
                     int opcaoLogin;
                     opcaoLogin = loginSucesso;
@@ -195,7 +216,7 @@ int main() {
                     }
                 }
                 opcao = 0;
-                break;
+                break;*/
 
             default:
                 system("cls");
