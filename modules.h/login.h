@@ -23,79 +23,95 @@ int login(Usuario* usuario) {
 
         switch (opcao) {
         case 1:
-                system("cls");
-                printf("\033[1;34m=====================================\n"); // Azul para a borda superior
-                printf("      \033[1;32mLogin no AcaoPet!\033[1;34m\n");    // Verde para o título
-                printf("=====================================\n");
-                printf("\033[1;33m- Por favor, insira suas credenciais para continuar -\033[0m\n"); // Amarelo para instruções
-                printf("\033[1;34m=====================================\n"); // Azul novamente
+                while (1){
+                    system("cls");
+                    printf("\033[1;34m=====================================\n"); // Azul para a borda superior
+                    printf("      \033[1;32mLogin no AcaoPet!\033[1;34m\n");    // Verde para o título
+                    printf("=====================================\n");
+                    printf("\033[1;33m- Por favor, insira suas credenciais para continuar -\033[0m\n"); // Amarelo para instruções
+                    printf("\033[1;34m=====================================\n"); // Azul novamente
 
-                printf("\033[1;36m\nDigite seu e-mail: \033[0m"); // Ciano para o prompt de entrada
-                scanf("%s", email);
+                    printf("\033[1;36m\nDigite seu e-mail: \033[0m"); // Ciano para o prompt de entrada
+                    scanf("%s", email);
 
-                printf("\033[1;36m\nDigite sua senha: \033[0m"); // Ciano novamente
+                    printf("\033[1;36m\nDigite sua senha: \033[0m"); // Ciano novamente
 
-                
-                int i = 0;
-                while (1) {
-                    char ch = getch();
-                    if (ch == 13) {
-                        senha[i] = '\0';
-                        break;
-                    } else if (ch == 8 && i > 0) {
-                        i--;
-                        printf("\b \b");
+                    
+                    int i = 0;
+                    while (1) {
+                        char ch = getch();
+                        if (ch == 13) {
+                            senha[i] = '\0';
+                            break;
+                        } else if (ch == 8 && i > 0) {
+                            i--;
+                            printf("\b \b");
+                        } else {
+                            senha[i] = ch;
+                            i++;
+                            printf("*");
+                        }
+                    }
+
+                    if (strlen(senha) < 8) {
+                        printf("\033[1;31m\n\nA senha deve conter pelo menos 8 digitos.\n\033[0m");
+                        Sleep(2000);
+                        system("cls");
+                        continue;
+                    }
+
+                    if (strcmp(email, "admin@pet.com") == 0 && strcmp(senha, "admin123") == 0) {
+                            usuario->isAdmin = 1; // Administrador
+                            printf("\033[1;32m\n\nLogin realizado com sucesso como Administrador!\n\033[0m");
+                            return opcao = 0;
+                    } 
+                    
+
+                    // Abrir o arquivo para leitura
+                    arquivo = fopen("usuarios.txt", "r");
+                    if (arquivo == NULL) {
+                        printf("\nErro ao abrir o arquivo de usuarios.\n");
+                    }
+
+                    char nomeArquivo[50], emailArquivo[100], senhaArquivo[50], cpfArquivo[20];
+                    char ruaArquivo[50], bairroArquivo[30], cidadeArquivo[30];
+                    int encontrou = 0;
+
+                    while (fscanf(arquivo, "Nome: %[^\n]\nEmail: %[^\n]\nSenha: %[^\n]\nCPF: %[^\n]\nRua: %[^\n]\nBairro: %[^\n]\nCidade: %[^\n]\n-------------------------\n", nomeArquivo, emailArquivo, senhaArquivo, cpfArquivo, ruaArquivo, bairroArquivo, cidadeArquivo) != EOF) {
+
+                        // Comparar as credenciais
+                        if (strcmp(email, emailArquivo) == 0 && strcmp(senha, senhaArquivo) == 0) {
+                            encontrou = 1;
+                            break;
+                        }
+                    }
+                    fclose(arquivo);    
+
+                    if (encontrou) {
+                            usuario->isAdmin = 0; // Usuário comum
+                            printf("\033[1;32m\n\nLogin realizado com sucesso!\n\033[0m");
+                            return opcao = 0; // Login bem-sucedido
                     } else {
-                        senha[i] = ch;
-                        i++;
-                        printf("*");
+                        char opcaoLogin;
+                        printf("\033[1;31m\nCredenciais invalidas! Deseja tentar novamente? (s/n): \n\033[0m");
+                        fflush(stdin);
+                        scanf("%c", &opcaoLogin);
+                        if (opcaoLogin == 's') {
+                            Sleep(1000);
+                            system("cls");
+                        }else{
+                            Sleep(1000);
+                            system("cls");
+                            break;
+                        }
                     }
-                }
-
-                 if (strlen(senha) < 8) {
-                    printf("\033[1;31m\n\nA senha deve conter pelo menos 8 digitos.\n\033[0m");
-                    Sleep(2000);
-                    system("cls");
-                    continue;
-                }
-
-                if (strcmp(email, "admin@pet.com") == 0 && strcmp(senha, "admin123") == 0) {
-                        usuario->isAdmin = 1; // Administrador
-                        printf("\033[1;32m\n\nLogin realizado com sucesso como Administrador!\n\033[0m");
-                        return opcao = 0;
-                } 
-                
-
-                // Abrir o arquivo para leitura
-                arquivo = fopen("usuarios.txt", "r");
-                if (arquivo == NULL) {
-                    printf("\nErro ao abrir o arquivo de usuarios.\n");
-                }
-
-                char nomeArquivo[50], emailArquivo[100], senhaArquivo[50], cpfArquivo[20];
-                char ruaArquivo[50], bairroArquivo[30], cidadeArquivo[30];
-                int encontrou = 0;
-
-                while (fscanf(arquivo, "Nome: %[^\n]\nEmail: %[^\n]\nSenha: %[^\n]\nCPF: %[^\n]\nRua: %[^\n]\nBairro: %[^\n]\nCidade: %[^\n]\n-------------------------\n", nomeArquivo, emailArquivo, senhaArquivo, cpfArquivo, ruaArquivo, bairroArquivo, cidadeArquivo) != EOF) {
-
-                    // Comparar as credenciais
-                    if (strcmp(email, emailArquivo) == 0 && strcmp(senha, senhaArquivo) == 0) {
-                        encontrou = 1;
-                        break;
-                    }
-                }
-                fclose(arquivo);    
-
-                if (encontrou) {
-                        usuario->isAdmin = 0; // Usuário comum
-                        printf("\033[1;32m\n\nLogin realizado com sucesso!\n\033[0m");
-                        return opcao = 0; // Login bem-sucedido
-                } else {
-                    printf("\033[1;31m\nCredenciais invalidas! Tente novamente.\n\033[0m");
-                    Sleep(1000);
-                    system("cls");
                 }
                 break;
+        
+        case 2:
+            if (opcao == 2){
+                return opcao = 1;
+            }
 
         default:
             printf("\033[1;31m\nOpcao invalida! Escolha uma das demonstradas no menu!\n\033[0m");
