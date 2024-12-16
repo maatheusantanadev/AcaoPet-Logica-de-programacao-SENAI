@@ -60,12 +60,12 @@ void salvarUsuarioNoArquivo(Usuario* usuario) {
 // Função para cadastrar um novo usuário na lista encadeada
 void cadastrarUsuario(Usuario** inicio, Usuario** fim) {
     char nome[50], email[50], senha[20], cpf[15], rua[50], bairro[30], cidade[30];
-    int tamanhoMax = 20;
+    int tamanhoMax = 20;   
 
     printf("\033[1;32m\nCadastro de Novo Usuario:\n\n\033[0m");
 
 
-    getchar();  
+    fflush(stdin);  
 
 
 
