@@ -27,7 +27,6 @@ int main() {
     
 
 
-    
 
     Usuario usuarioAtual = { "", "", "", "", "", "", "", 0, NULL, NULL };
     int loginSucesso = 0;
@@ -36,29 +35,19 @@ int main() {
         loginSucesso = login(&usuarioAtual);
         int opcaoLogin;
         opcaoLogin = loginSucesso;
-        while(1){
-            if (opcaoLogin == 1){
-                system("cls");
-                printf("\033[1;32m\nCadastro de usuarios...\n\033[0m");
-                char fechar;
-                printf("\033[1;34\nDeseja continuar? (s/n): \033[0m"); 
-                scanf("%c", &fechar);
-                fflush(stdin);
-                if(fechar == 'n'){
-                    loginSucesso = 0;
-                    system("cls");
-                    break;
-                }
-                Sleep(1000);
-                system("cls");
-                cadastrarUsuario(&inicioUser, &fimUser);
-                printf("\033[1;32mUsuario cadastrado com sucesso!\n\033[0m");        
-                loginSucesso = 0;
-                Sleep(1000);
-                system("cls");
-            }else{
-                break;
-            }
+
+        if (opcaoLogin == 1){
+            system("cls");
+            printf("\033[1;32m\nCadastro de usuarios...\n\033[0m");
+            Sleep(1000);
+            system("cls");
+            cadastrarUsuario(&inicioUser, &fimUser);
+            printf("\033[1;32mUsuario cadastrado com sucesso!\n\033[0m");        
+            loginSucesso = 0;
+            Sleep(1000);
+            system("cls");
+        }else{
+            break;
         }
     }
     int opcao = 0;
@@ -195,6 +184,8 @@ int main() {
                 system("cls");
                 exit(0);
 
+
+                //Volta para a parte de login ao sair do sistema
                 /*while (!loginSucesso) {
                     loginSucesso = login(&usuarioAtual);
                     int opcaoLogin;

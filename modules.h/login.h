@@ -109,9 +109,8 @@ int login(Usuario* usuario) {
                 break;
         
         case 2:
-            if (opcao == 2){
-                return opcao = 1;
-            }
+            return opcao = 1;
+            
 
         default:
             printf("\033[1;31m\nOpcao invalida! Escolha uma das demonstradas no menu!\n\033[0m");
