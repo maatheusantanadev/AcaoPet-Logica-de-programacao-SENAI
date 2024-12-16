@@ -35,10 +35,6 @@ typedef struct {
 // Função para carregar os usuários do arquivo
 int carregarUsuarios(InformacaoDeUsuario usuarios[]) {
     FILE *arquivo = fopen("usuarios.txt", "r");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de usuarios.\n");
-        return 0;
-    }
 
     int count = 0;
     char linha[150];
@@ -70,10 +66,6 @@ int carregarUsuarios(InformacaoDeUsuario usuarios[]) {
 // Função para carregar os animais do arquivo
 int carregarAnimais(InformacaoDeAnimal animais[]) {
     FILE *arquivo = fopen("animais.txt", "r");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de animais.\n");
-        return 0;
-    }
 
     int count = 0;
     char linha[150];
@@ -114,7 +106,6 @@ int verificarUsuario(char cpf[], InformacaoDeUsuario usuarios[], int numUsuarios
 // Função para verificar o ID do animal
 int verificarAnimal(int id, InformacaoDeAnimal animais[], int numAnimais, InformacaoDeAnimal *animalEncontrado) {
     for (int i = 0; i < numAnimais; i++) {
-        printf("Comparando ID: %d com %d\n", id, animais[i].idAnimal); // Debug
         if (animais[i].idAnimal == id) {
             *animalEncontrado = animais[i];
             return 1;
@@ -126,11 +117,6 @@ int verificarAnimal(int id, InformacaoDeAnimal animais[], int numAnimais, Inform
 // Função para salvar a adoção em um arquivo
 void salvarAdocao(Adocao adocao) {
     FILE *arquivo = fopen("adocoes.txt", "a");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo de adocoes.\n");
-        return;
-    }
-
     fprintf(arquivo, "CPF do Usuário: %s\n", adocao.cpfUsuario);
     fprintf(arquivo, "ID do Animal: %d\n", adocao.idAnimal);
     fprintf(arquivo, "-------------------------\n");
@@ -175,7 +161,7 @@ void lerAdocoes(InformacaoDeUsuario usuarios[], int numUsuarios, InformacaoDeAni
             printf("\033[1;34mCPF do Usuario: %s\n\033[0m", cpfUsuario);
             printf("\033[1;34mID do Animal: %d\n\033[0m", idAnimal);
 
-            printf("\033[1;34\n=== Dados do Usuario ===\n\033[0m");
+            printf("\033[1;34m\n=== Dados do Usuario ===\n\033[0m");
             printf("\033[1;36mNome: %s\n\033[0m", usuarioEncontrado.nomeUsuario);
             printf("\033[1;36mCPF: %s\n\033[0m", usuarioEncontrado.cpf);
             printf("\033[1;36mEmail: %s\n\033[0m", usuarioEncontrado.email);
@@ -205,7 +191,7 @@ void realizarAdocao() {
     int numAnimais = carregarAnimais(animais);
 
     if (numUsuarios == 0 || numAnimais == 0) {
-        printf("Nao foi possivel carregar os dados necessarios.\n");
+        printf("Nao ha animais disponiveis.\n");
         return;
     }
 

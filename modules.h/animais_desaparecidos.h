@@ -18,7 +18,7 @@ typedef struct AnimalDesaparecido {
 AnimalDesaparecido* criarAnimal(char nome[], char idade[], char especie[], char detalhes[]) {
     AnimalDesaparecido* novo = (AnimalDesaparecido*)malloc(sizeof(AnimalDesaparecido));
     if (novo == NULL) {
-        printf("Erro ao alocar memória!\n");
+        printf("Erro ao alocar memoria!\n");
         exit(1);
     }
     strcpy(novo->nomeAnimal, nome);
@@ -33,10 +33,6 @@ AnimalDesaparecido* criarAnimal(char nome[], char idade[], char especie[], char 
 // Função para salvar os dados do animal em um arquivo
 void salvarAnimalNoArquivo(AnimalDesaparecido* animal) {
     FILE* arquivo = fopen("animais_desaparecidos.txt", "a");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para salvar!\n");
-        return;
-    }
 
     fprintf(arquivo, "Nome: %s\n", animal->nomeAnimal);
     fprintf(arquivo, "Idade: %s\n", animal->idadeAnimal);

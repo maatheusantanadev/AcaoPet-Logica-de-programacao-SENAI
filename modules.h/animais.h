@@ -44,9 +44,9 @@ void salvarAnimal(Animal* animal) {
     fprintf(arquivo, "ID: %s\n", animal->idAnimal);
     fprintf(arquivo, "Nome: %s\n", animal->nomeAnimal);
     fprintf(arquivo, "Idade: %s\n", animal->idadeAnimal);
-    fprintf(arquivo, "Espécie: %s\n", animal->especie);
+    fprintf(arquivo, "Especie: %s\n", animal->especie);
     fprintf(arquivo, "Cidade: %s\n", animal->cidadeAnimal);
-    fprintf(arquivo, "Condições de Adoção: %s\n", animal->condicoesAdocao);
+    fprintf(arquivo, "Condicoes de Adocao: %s\n", animal->condicoesAdocao);
     fprintf(arquivo, "-------------------------\n");
 
     fclose(arquivo);
